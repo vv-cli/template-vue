@@ -1,0 +1,174 @@
+html, body, #app {
+  height: 100%;
+  overflow: hidden;
+}
+#app {
+
+  // 页面除navbar之外的区域样式
+  .view-content {
+    margin-top: 44px;
+    height: calc(100vh - 44px);
+    overflow: hidden auto;
+    &.had-footer {
+      height: calc(100vh - 44px - 64px);
+    }
+  }
+
+  // 更改navbar样式
+  .van-nav-bar__content {
+    height: 44px;
+    line-height: 44px;
+    .van-nav-bar__title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .van-icon {
+      font-size: 20px;
+    }
+  }
+}
+
+/* 文本相关 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.w-required::before {
+  content: '*';
+  color: #FC1E1E;
+}
+
+/* 布局相关 */
+.max-width,
+.middle-width,
+.small-width {
+  box-sizing: border-box;
+}
+
+.max-width {
+  width: 365px;
+  padding: 0 5px;
+  margin: 0 auto;
+}
+
+.middle-width {
+  width: 355px;
+  padding:  0 10px;
+  margin: 0 auto;
+}
+
+.small-width {
+  width: 375px;
+  padding: 0 15px;
+}
+
+/* flex-横向对齐模式-纵向对齐模式 */
+.flex-left,
+.flex-left-top,
+.flex-left-center,
+.flex-left-bottom,
+.flex-center,
+.flex-center-top,
+.flex-center-center,
+.flex-center-bottom,
+.flex-right,
+.flex-right-top,
+.flex-right-center,
+.flex-right-bottom,
+.flex-between,
+.flex-between-top,
+.flex-between-center,
+.flex-between-bottom {
+  display: flex;
+}
+
+.flex-left,
+.flex-left-top,
+.flex-left-center,
+.flex-left-bottom {
+  justify-content: start;
+}
+
+.flex-center,
+.flex-center-top,
+.flex-center-center,
+.flex-center-bottom {
+  justify-content: center;
+}
+
+.flex-right,
+.flex-right-top,
+.flex-right-center,
+.flex-right-bottom {
+  justify-content: end;
+}
+
+.flex-between,
+.flex-between-top,
+.flex-between-center,
+.flex-between-bottom {
+  justify-content: space-between;
+}
+
+.flex-left-top,
+.flex-center-top,
+.flex-right-top,
+.flex-between-top {
+  align-items: start;
+}
+
+.flex-left-center,
+.flex-center-center,
+.flex-right-center,
+.flex-between-center {
+  align-items: center;
+}
+.flex-left-bottom,
+.flex-center-bottom,
+.flex-right-bottom,
+.flex-between-bottom {
+  align-items: center;
+}
+
+/* 浮动布局 */
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.clear-float::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* 容器相关 */
+.white-box {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 2.667vw rgba(0,0,0,.07);
+  overflow: hidden;
+}
+
+/* 边框相关 */
+.narrow-bottom-border {
+  position: relative;
+}
+
+.narrow-bottom-border::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+}

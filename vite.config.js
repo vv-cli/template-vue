@@ -9,12 +9,18 @@ import { VantResolver, VueUseComponentsResolver } from 'unplugin-vue-components/
 // 按需加载icones图标
 import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
+// 版本号插件
+import versionPlugin from './versionPlugin';
 
 const timestamp = Date.now();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/template',
+  define: {
+    // 定义全局变量
+    __APP_VERSION__: timestamp,
+  },
   plugins: [
     vue(),
     Icons({ autoInstall: true, compiler: 'vue3' }),
@@ -36,6 +42,9 @@ export default defineConfig({
         IconsResolver(),
       ], // 组件路径解析器列表
     }),
+    versionPlugin({
+      version: timestamp,
+    }),
   ],
   server: {
     // 是否开启 https
@@ -49,14 +58,14 @@ export default defineConfig({
     // 允许跨域
     cors: true,
     // 自定义代理规则
-    proxy: {
-      '/api': {
-        // 这里配置真实的后端环境地址
-        target: 'http://example',
-        changeOrigin: true,
-        rewrite: (path) => path.replace('/api/', '/'),
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     // 这里配置真实的后端环境地址
+    //     target: 'http://example',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace('/api/', '/'),
+    //   },
+    // },
   },
   build: {
     // 设置最终构建的浏览器兼容目标
@@ -91,6 +100,16 @@ export default defineConfig({
       assets: resolve(__dirname, './src/assets'),
       store: resolve(__dirname, './src/store'),
       utils: resolve(__dirname, './src/utils'),
+      views: resolve(__dirname, './src/views'),
+      api: resolve(__dirname, './src/api'),
+      common: resolve(__dirname, './src/common'),
+    },
+  },
+  // less配置
+  css: {
+    less: {
+      modifyVars: {},
+      javascriptEnabled: true,
     },
   },
 });

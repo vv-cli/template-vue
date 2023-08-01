@@ -37,8 +37,8 @@ module.exports = defineConfig({
     'import/prefer-default-export': 0,
     // 要求使用 let 或 const 而不是 var
     'no-var': 'error',
-    // 禁止使用 new 以避免产生副作用
-    'no-new': 1,
+    // new Obj 无需变量接收
+    'no-new': 0,
     // 禁止变量声明与外层作用域的变量同名
     'no-shadow': 0,
     // 禁用 console
