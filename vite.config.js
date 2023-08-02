@@ -15,101 +15,102 @@ import versionPlugin from './versionPlugin';
 const timestamp = Date.now();
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: '/template',
-  define: {
-    // 定义全局变量
-    __APP_VERSION__: timestamp,
-  },
-  plugins: [
-    vue(),
-    Icons({ autoInstall: true, compiler: 'vue3' }),
-    AutoImport({
-      dts: false, // 生成类型声明文件路径
-      resolvers: [], // 路径解析器列表
-      eslintrc: {
-        enabled: false, // 启用与 Eslint 集成（ 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗）
-        filepath: './eslintrc-auto-import.json', // 生成 EsLint 配置文件的路径
-        globalsPropValue: true, // 用于覆盖 globals 属性
+export default ({ mode }) => {
+  return defineConfig({
+    base: '/template',
+    define: {
+      // 定义全局变量
+      __APP_VERSION__: timestamp,
+    },
+    plugins: [
+      vue(),
+      Icons({ autoInstall: true, compiler: 'vue3' }),
+      AutoImport({
+        dts: false, // 生成类型声明文件路径
+        resolvers: [], // 路径解析器列表
+        eslintrc: {
+          enabled: true, // 启用与 Eslint 集成（ 1、改为true用于生成eslint配置。2、生成后改回false，避免重复生成消耗）
+          filepath: './eslintrc-auto-import.json', // 生成 EsLint 配置文件的路径
+          globalsPropValue: true, // 用于覆盖 globals 属性
+        },
+        imports: ['vue', 'pinia', 'vue-router', '@vueuse/core'], // 路径解析器列表
+      }),
+      Components({
+        dts: false, // 生成类型声明文件路径
+        resolvers: [
+          VantResolver(), // vant组件自动按需引入
+          VueUseComponentsResolver(),
+          IconsResolver(),
+        ], // 组件路径解析器列表
+      }),
+      versionPlugin({
+        version: timestamp,
+      }),
+    ],
+    server: {
+      // 是否开启 https
+      https: false,
+      // 端口号
+      port: 5200,
+      // 监听所有地址
+      host: '0.0.0.0',
+      // 服务启动时是否自动打开浏览器
+      open: true,
+      // 允许跨域
+      cors: true,
+      // 自定义代理规则
+      // proxy: {
+      //   '/api': {
+      //     // 这里配置真实的后端环境地址
+      //     target: 'http://example',
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace('/api/', '/'),
+      //   },
+      // },
+    },
+    build: {
+      // 设置最终构建的浏览器兼容目标
+      target: 'es2018',
+      // 构建后是否生成 source map 文件
+      sourcemap: false,
+      //  chunk 大小警告的限制（以 kbs 为单位）
+      chunkSizeWarningLimit: 2000,
+      // 启用/禁用 gzip 压缩大小报告
+      reportCompressedSize: false,
+      // 在生产环境移除console.log
+      terserOptions: {
+        compress: {
+          drop_console: mode === 'production',
+          drop_debugger: true,
+        },
       },
-      imports: ['vue', 'pinia', 'vue-router', '@vueuse/core'], // 路径解析器列表
-    }),
-    Components({
-      dts: false, // 生成类型声明文件路径
-      resolvers: [
-        VantResolver(), // vant组件自动按需引入
-        VueUseComponentsResolver(),
-        IconsResolver(),
-      ], // 组件路径解析器列表
-    }),
-    versionPlugin({
-      version: timestamp,
-    }),
-  ],
-  server: {
-    // 是否开启 https
-    https: false,
-    // 端口号
-    port: 5200,
-    // 监听所有地址
-    host: '0.0.0.0',
-    // 服务启动时是否自动打开浏览器
-    open: true,
-    // 允许跨域
-    cors: true,
-    // 自定义代理规则
-    // proxy: {
-    //   '/api': {
-    //     // 这里配置真实的后端环境地址
-    //     target: 'http://example',
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace('/api/', '/'),
-    //   },
-    // },
-  },
-  build: {
-    // 设置最终构建的浏览器兼容目标
-    target: 'es2015',
-    // 构建后是否生成 source map 文件
-    sourcemap: false,
-    //  chunk 大小警告的限制（以 kbs 为单位）
-    chunkSizeWarningLimit: 2000,
-    // 启用/禁用 gzip 压缩大小报告
-    reportCompressedSize: false,
-    // 在生产环境移除console.log
-    terserOptions: {
-      compress: {
-        drop_console: false,
-        pure_funcs: ['console.log', 'console.info'],
-        drop_debugger: true,
+      minify: 'terser',
+      // 静态资源打包到dist下的不同目录
+      rollupOptions: {
+        output: {
+          chunkFileNames: `static/js/[name]-[hash]-${timestamp}.js`,
+          entryFileNames: `static/js/[name]-[hash]-${timestamp}.js`,
+          assetFileNames: `static/[ext]/[name]-[hash]-${timestamp}.[ext]`,
+        },
       },
     },
-    minify: 'terser',
-    // 静态资源打包到dist下的不同目录
-    rollupOptions: {
-      output: {
-        chunkFileNames: `static/js/[name]-[hash]-${timestamp}.js`,
-        entryFileNames: `static/js/[name]-[hash]-${timestamp}.js`,
-        assetFileNames: `static/[ext]/[name]-[hash]-${timestamp}.[ext]`,
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src'),
+        assets: resolve(__dirname, './src/assets'),
+        store: resolve(__dirname, './src/store'),
+        utils: resolve(__dirname, './src/utils'),
+        views: resolve(__dirname, './src/views'),
+        api: resolve(__dirname, './src/api'),
+        common: resolve(__dirname, './src/common'),
       },
     },
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      assets: resolve(__dirname, './src/assets'),
-      store: resolve(__dirname, './src/store'),
-      utils: resolve(__dirname, './src/utils'),
-      views: resolve(__dirname, './src/views'),
-      api: resolve(__dirname, './src/api'),
-      common: resolve(__dirname, './src/common'),
+    // less配置
+    css: {
+      less: {
+        modifyVars: {},
+        javascriptEnabled: true,
+      },
     },
-  },
-  // less配置
-  css: {
-    less: {
-      modifyVars: {},
-      javascriptEnabled: true,
-    },
-  },
-});
+  });
+};

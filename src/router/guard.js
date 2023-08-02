@@ -42,11 +42,12 @@ const versionCheck = async () => {
       showDialog({
         message: '检测到版本更新，请重新加载页面',
       }).then(() => {
-        sessionStorage.setItem('userInfo', store.userInfo);
+        sessionStorage.setItem('userInfo', JSON.stringify(store.userInfo));
         window.location.reload();
       });
     } else if (sessionStorage.getItem('userInfo')) {
-      store.userInfo = sessionStorage.getItem('userInfo');
+      store.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+      sessionStorage.removeItem('userInfo');
     }
   } catch (err) {
     showToast(err.message || err.data?.message);
