@@ -61,7 +61,7 @@ const processList = reactive({
         <van-tab title="明细信息">
           <div style="height: 300px">明细信息</div>
         </van-tab>
-        <van-tab title="ces">
+        <van-tab title="流程跟踪">
           <ProcessTracking :list="processList.value" />
         </van-tab>
       </van-tabs>
