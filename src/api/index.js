@@ -1,5 +1,5 @@
 import request from '../request';
-import * as api from './constants';
+import * as api from './api';
 
 // token查询
 export function queryToken(data) {

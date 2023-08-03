@@ -1,17 +1,19 @@
-// css主题色变量
+// css主题色变量 可从vant各组件文档底部去找需变更的值
 const CSS_VARS = [
   // 自定义色值变量
   '--theme-color',
-  // vant色值变量，可从vant官网组件尾部去找需变更的值
   // navbar
   '--van-nav-bar-background',
-  // 按钮
+  // button
   '--van-button-primary-background',
   '--van-button-primary-border-color',
-  // 复选框
+  // checkbox
   '--van-checkbox-checked-icon-color',
-  // dilog确认按钮
+  // dilog
   '--van-dialog-confirm-button-text-color',
+  // tabs
+  '--van-tabs-bottom-bar-color',
+  '--van-tab-active-text-color',
 ];
 
 export { CSS_VARS };

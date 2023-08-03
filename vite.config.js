@@ -103,6 +103,7 @@ export default ({ mode }) => {
         views: resolve(__dirname, './src/views'),
         api: resolve(__dirname, './src/api'),
         common: resolve(__dirname, './src/common'),
+        components: resolve(__dirname, './src/components'),
       },
     },
     // less配置

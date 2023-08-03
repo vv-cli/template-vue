@@ -2,11 +2,11 @@ import { createApp } from 'vue';
 import VConsole from 'vconsole';
 import store from 'store';
 import router from '@/router';
+
+import 'normalize.css';
 import './style/global.less';
-import './style/theme.less';
-// showToast样式
+import './style/reset-vant.less';
 import 'vant/es/toast/style';
-// showDialog样式
 import 'vant/es/dialog/style';
 
 import App from './App.vue';
