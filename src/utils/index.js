@@ -86,4 +86,19 @@ function dataURLtoBlob(dataurl) {
   });
 }
 
-export { changeThemeColor, isEmpty, isIos, dataURLtoBlob };
+/**
+ * @description: px转化为vw
+ * @param {Number} px 需要转化的像素值
+ * @param {Boolean} needUnit 返回vw是否需要带单位
+ * @return {*}
+ */
+function pxToVw(px, needUnit = false) {
+  const num = +px;
+  if (typeof num !== 'number' || Number.isNaN(num)) {
+    return px;
+  }
+  const vw = (num / import.meta.env.VITE_DRAFT_WIDTH) * 100;
+  return needUnit ? `${vw}vw` : vw;
+}
+
+export { changeThemeColor, isEmpty, isIos, dataURLtoBlob, pxToVw };

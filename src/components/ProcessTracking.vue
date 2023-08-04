@@ -1,6 +1,9 @@
 <template>
   <van-steps direction="vertical" :active="0" class="process-tracking">
     <van-step v-for="(item, index) in list" :key="index">
+      <template #active-icon>
+        <div class="dot"></div>
+      </template>
       <div class="line title-line flex-between">
         <div class="title-name">{{ item.approvalNodeName }}</div>
         <div class="titile-type">{{ item.approvalOperateType }}</div>
@@ -18,10 +21,6 @@
 </template>
 
 <script setup>
-defineOptions({
-  name: 'ProcessTracking',
-});
-
 defineProps({
   list: { type: Array, default: () => [], required: true },
 });
@@ -30,6 +29,12 @@ defineProps({
 <style lang="less" scoped>
 .process-tracking {
   font-size: 14px;
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--theme-color);
+  }
   .line {
     margin-bottom: 10px;
   }

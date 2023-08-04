@@ -1,3 +1,23 @@
+<template>
+  <div class="footer-buttons flex-between-center">
+    <template v-if="typeof text === 'string'">
+      <van-button :type="type" class="btn" :disabled="disabled" @click="handleClick(0)">{{ text }}</van-button>
+    </template>
+    <template v-else>
+      <van-button
+        v-for="(name, index) in text"
+        :key="name + index"
+        :type="Array.isArray(type) ? type[index] || 'primary' : 'primary'"
+        class="btn"
+        :disabled="Array.isArray(disabled) ? disabled[index] ?? false : false"
+        @click="handleClick(index)"
+      >
+        {{ name }}
+      </van-button>
+    </template>
+  </div>
+</template>
+
 <script setup>
 defineProps({
   // 按钮内容
@@ -40,26 +60,6 @@ function handleClick(index) {
   emit(fnName);
 }
 </script>
-
-<template>
-  <div class="footer-buttons flex-between-center">
-    <template v-if="typeof text === 'string'">
-      <van-button :type="type" class="btn" :disabled="disabled" @click="handleClick(0)">{{ text }}</van-button>
-    </template>
-    <template v-else>
-      <van-button
-        v-for="(name, index) in text"
-        :key="name + index"
-        :type="Array.isArray(type) ? type[index] || 'primary' : 'primary'"
-        class="btn"
-        :disabled="Array.isArray(disabled) ? disabled[index] ?? false : false"
-        @click="handleClick(index)"
-      >
-        {{ name }}
-      </van-button>
-    </template>
-  </div>
-</template>
 
 <style lang="less" scoped>
 .footer-buttons {

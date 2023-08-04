@@ -1,33 +1,35 @@
 <template>
   <div class="w-view">
-    <header ref="header" class="w-header van-safe-area-top">
+    <header ref="headerRef" class="w-header van-safe-area-top">
       <slot name="header"> </slot>
     </header>
 
-    <div ref="subHeader" class="w-sub-header">
+    <div ref="subHeaderRef" class="w-sub-header">
       <slot name="sub-header"> </slot>
     </div>
 
-    <section :style="`height: calc(100vh - ${reduceHeight}px);`" class="w-content">
+    <section :style="`height: calc(100vh - ${reduceHeight}vw);`" class="w-content">
       <slot> </slot>
     </section>
 
-    <footer ref="footer" class="w-footer van-safe-area-bottom">
+    <footer ref="footerRef" class="w-footer van-safe-area-bottom">
       <slot name="footer"> </slot>
     </footer>
   </div>
 </template>
 
 <script setup>
+import { pxToVw } from 'utils';
+
 defineOptions({
   name: 'WView',
 });
 
 const slots = useSlots();
 const reduceHeight = ref(0);
-const header = ref(null);
-const subHeader = ref(null);
-const footer = ref(null);
+const headerRef = ref(null);
+const subHeaderRef = ref(null);
+const footerRef = ref(null);
 
 onMounted(() => {
   calcReduceHeight();
@@ -39,14 +41,15 @@ onMounted(() => {
  */
 function calcReduceHeight() {
   const list = [
-    { exist: !!slots.header, dom: header.value },
-    { exist: !!slots['sub-header'], dom: subHeader.value },
-    { exist: !!slots.footer, dom: footer.value },
+    { exist: !!slots.header, dom: headerRef.value },
+    { exist: !!slots['sub-header'], dom: subHeaderRef.value },
+    { exist: !!slots.footer, dom: footerRef.value },
   ];
-  reduceHeight.value = list.reduce((initial, cur) => {
-    console.log(cur);
-    return initial + (cur.exist ? cur.dom.offsetHeight ?? 0 : 0);
-  }, 0);
+  reduceHeight.value = pxToVw(
+    list.reduce((initial, cur) => {
+      return initial + (cur.exist ? cur.dom.offsetHeight ?? 0 : 0);
+    }, 0),
+  );
 }
 </script>
 
