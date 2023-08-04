@@ -12,10 +12,11 @@
           <van-icon name="cross" />
         </template>
       </van-nav-bar>
+      <div class="interval-line"></div>
     </template>
 
     <div class="content">
-      <van-tabs ref="tabRef" v-model:active="activeTabIndex" scrollspy sticky :offset-top="pxToVw(44, true)">
+      <van-tabs ref="tabRef" v-model:active="activeTabIndex" scrollspy sticky :offset-top="pxToVw(48, true)">
         <van-tab title="基本信息">
           <div style="height: 300px">基本信息</div>
         </van-tab>
@@ -134,4 +135,9 @@ const processList = reactive({
 });
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.interval-line {
+  height: 5px;
+  background-color: #f5f5f5;
+}
+</style>

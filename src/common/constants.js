@@ -2,8 +2,6 @@
 const CSS_VARS = [
   // 自定义色值变量
   '--theme-color',
-  // navbar
-  '--van-nav-bar-background',
   // button
   '--van-button-primary-background',
   '--van-button-primary-border-color',
