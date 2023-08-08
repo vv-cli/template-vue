@@ -52,7 +52,7 @@ const emit = defineEmits(['firstClick', 'secondClick']);
 
 /**
  * @description: 按钮点击事件回调
- * @param {*} index 按钮下标
+ * @param {Number} index 按钮下标
  * @return {*}
  */
 function handleClick(index) {
@@ -69,7 +69,6 @@ function handleClick(index) {
   box-sizing: border-box;
   height: 64px;
   border: 1px solid #fff;
-  box-shadow: 0 -2px 2.667vw 0 rgba(51, 51, 51, 0.12);
 
   .btn {
     height: 100%;

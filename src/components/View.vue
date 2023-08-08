@@ -63,5 +63,10 @@ function calcReduceHeight() {
   .w-content {
     overflow: hidden scroll;
   }
+
+  .w-footer {
+    box-shadow: 0 -2px 2.667vw 0 rgba(51, 51, 51, 0.12);
+    position: relative;
+  }
 }
 </style>

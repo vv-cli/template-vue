@@ -2,15 +2,9 @@
 const CSS_VARS = [
   // 自定义色值变量
   '--theme-color',
-  // button
-  '--van-button-primary-background',
-  '--van-button-primary-border-color',
-  // checkbox
-  '--van-checkbox-checked-icon-color',
-  // dilog
-  '--van-dialog-confirm-button-text-color',
+  // vant主要色值变量
+  '--van-primary-color',
   // tabs
-  '--van-tabs-bottom-bar-color',
   '--van-tab-active-text-color',
 ];
 
